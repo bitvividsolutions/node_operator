@@ -1,0 +1,34 @@
+version: "3.2"
+services : 
+  redis:
+   image: 'redis:6.2-alpine'
+   ports:
+   - "6379:6379"
+
+   
+  node:
+    image : xconnected/components:itms-node-cpu-2.0
+    command: ./entrypoint.sh
+    depends_on :
+      - redis
+    volumes:
+      - /workspace:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./db:/app/db
+    restart: always
+    network_mode: host
+    environment: 
+      - DEBUG=0
+      - CENTRAL_SERVER_URL=http://192.168.100.92:4101/v1
+      - CENTERAL_AUTH_URL=http://192.168.100.92:8080/realms/XconnectedAuthentication/protocol/openid-connect/token
+      - AUTH_USERNAME=admin@admin.com
+      - AUTH_PASSWORD=admin123
+      - AUTH_CLIENT_ID=nestjs-client
+      - CLIENT_SECRET=3GrdLrWRYDgUsd729N7LI4zs5PV4dFk6
+      - NETWORK_PREFIX=192.168
+      - PROGRAM_LOG_PATH="./log.file"
+      - KAFKA_BOOTSTRAP_SERVER=192.168.100.92:9092
+      - DOCKER_LOGIN_CLIENT=DOCKERHUB
+      - DOCKER_LOGIN_USERNAME=bitvividtac
+      - DOCKER_LOGIN_PASSWORD_TOKEN=dckr_pat_pWlLa4Iq9xgtZCc8s_AgHfxy5BA
+      - DOWNLOAD_BASE_PATH=''
