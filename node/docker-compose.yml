@@ -1,12 +1,12 @@
 version: "3.2"
-services : 
+services :
   redis:
    image: 'redis:6.2-alpine'
+   restart: always
    ports:
    - "6379:6379"
-   restart: always
 
-   
+
   node:
     image : xconnected/components:itms-node-cpu-2.0
     command: ./entrypoint.sh
@@ -18,18 +18,18 @@ services :
       - ./db:/app/db
     restart: always
     network_mode: host
-    environment: 
+    environment:
       - DEBUG=0
-      - CENTRAL_SERVER_URL=http://192.168.100.92:4101/v1
-      - CENTERAL_AUTH_URL=http://192.168.100.92:8080/realms/XconnectedAuthentication/protocol/openid-connect/token
-      - AUTH_USERNAME=admin@admin.com
-      - AUTH_PASSWORD=admin123
-      - AUTH_CLIENT_ID=nestjs-client
-      - CLIENT_SECRET=3GrdLrWRYDgUsd729N7LI4zs5PV4dFk6
-      - NETWORK_PREFIX=192.168
+      - CENTRAL_SERVER_URL=http://10.71.5.3/api-config/
+      - CENTERAL_AUTH_URL=http://10.71.5.3/auth/realms/XconnectedAuthentication/protocol/openid-connect/token
+      - AUTH_USERNAME=system
+      - AUTH_PASSWORD=system@123
+      - AUTH_CLIENT_ID=node
+      - CLIENT_SECRET=NGEzna22kqqBDaAqj8lvsiEWZ4jhZrNv
+      - NETWORK_PREFIX=10.2
       - PROGRAM_LOG_PATH="./log.file"
-      - KAFKA_BOOTSTRAP_SERVER=192.168.100.92:9092
+      - KAFKA_BOOTSTRAP_SERVER=10.71.5.3:9092
       - DOCKER_LOGIN_CLIENT=DOCKERHUB
       - DOCKER_LOGIN_USERNAME=bitvividtac
-      - DOCKER_LOGIN_PASSWORD_TOKEN=your_pat_file
+      - DOCKER_LOGIN_PASSWORD_TOKEN=dckr_pat_pWlLa4Iq9xgtZCc8s_AgHfxy5BA
       - DOWNLOAD_BASE_PATH=''
