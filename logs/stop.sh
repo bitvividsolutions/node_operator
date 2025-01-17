@@ -1,3 +1,3 @@
 #! /bin/bash
 
-docker rm -f log-dipatcher-1
+docker rm -f logs-dispatcher-1
